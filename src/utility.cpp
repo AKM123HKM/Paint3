@@ -46,3 +46,12 @@ bool compare_mouse_events(MouseButtonEvents a, MouseButtonEvents b){
     }
     return false;
 }
+
+bool check_point_rect_collision(sf::Vector2f pos,sf::FloatRect rect){
+    if (pos.x >= rect.position.x && pos.x <= rect.position.x + rect.size.x){
+        if(pos.y >= rect.position.y && pos.y <= rect.position.y + rect.size.y){
+            return true;
+        }
+    }
+    return false;
+}

@@ -12,3 +12,5 @@ std::ostream& operator<<(std::ostream& os, sf::Vector2f vector);
 bool compare_mouse_states(MouseButtonStates a, MouseButtonStates b);
 
 bool compare_mouse_events(MouseButtonEvents a, MouseButtonEvents b);
+
+bool check_point_rect_collision(sf::Vector2f pos,sf::FloatRect rect);
