@@ -50,10 +50,13 @@ void Text_Button::draw_button(sf::RenderWindow& window){
     window.draw(text);
 }
 
-Image_Button::Image_Button(sf::Vector2f scale,sf::Vector2f pos,std::string file_path,int Apadding):texture(file_path),sprite(texture){
+Image_Button::Image_Button(sf::Vector2f scale,sf::Vector2f pos,std::string image_path,std::string highlighted_image_path):
+                           texture(image_path),
+                           sprite(texture),
+                           highlighted_texture(highlighted_image_path){
     texture.setSmooth(true);
+    highlighted_texture.setSmooth(true);
     sprite.setPosition(pos);
-    sprite.setColor(base_color);
     original_scale = scale;
     sprite.setScale(original_scale);
 }
@@ -62,20 +65,15 @@ void Image_Button::draw_button(sf::RenderWindow& window){
     window.draw(sprite);
 }
 
-void Image_Button::set_button_color(sf::Color Abase_color,sf::Color Ahighlighted_color){
-    base_color = Abase_color;
-    highlighted_color = Ahighlighted_color;
-}
-
 void Image_Button::update_button(sf::RenderWindow& window,Mouse& mouse){
     sf::Vector2f mouse_pos = mouse.get_mouse_position(window);
     if(check_point_rect_collision(mouse_pos,sprite.getGlobalBounds())){
         sprite.setScale(original_scale + sf::Vector2f(0.1,0.1));
-        sprite.setColor(highlighted_color);
+        sprite.setTexture(highlighted_texture);
     }
     else{
         sprite.setScale(original_scale);
-        sprite.setColor(base_color);
+        sprite.setTexture(texture);
     }
     draw_button(window);
 }
