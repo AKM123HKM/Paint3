@@ -17,13 +17,13 @@ int main() {
     Paint paint(FONT);
 
     while (window.isOpen()) {
-        while (const std::optional event = window.pollEvent()) {
+        while (const std::optional event = window.pollEvent()){
             if (event->is<sf::Event::Closed>()) {
                 window.close();
             }
         }
         
-        window.clear();
+        window.clear(sf::Color::White);
         paint.run(window);
         window.display();
     }

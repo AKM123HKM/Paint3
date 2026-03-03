@@ -27,13 +27,13 @@ void Canvas::add_rectangle_vertexes(sf::Vector2f mouse_pos){
         sf::Vector2f pos3 = sf::Vector2f((perpendicular_dir * (stroke_thickness/2)) + mouse_pos);
         sf::Vector2f pos4 = sf::Vector2f(((perpendicular_dir * -1.f) * (stroke_thickness/2)) + mouse_pos);
 
-        strokes.back().append(sf::Vertex(pos1));
-        strokes.back().append(sf::Vertex(pos2));
-        strokes.back().append(sf::Vertex(pos3));
+        strokes.back().append(sf::Vertex(pos1,stroke_color));
+        strokes.back().append(sf::Vertex(pos2,stroke_color));
+        strokes.back().append(sf::Vertex(pos3,stroke_color));
         
-        strokes.back().append(sf::Vertex(pos2));
-        strokes.back().append(sf::Vertex(pos3));
-        strokes.back().append(sf::Vertex(pos4));
+        strokes.back().append(sf::Vertex(pos2,stroke_color));
+        strokes.back().append(sf::Vertex(pos3,stroke_color));
+        strokes.back().append(sf::Vertex(pos4,stroke_color));
 
         temp_point = mouse_pos;
     }

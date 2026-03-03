@@ -50,13 +50,32 @@ void Text_Button::draw_button(sf::RenderWindow& window){
     window.draw(text);
 }
 
-Image_Button::Image_Button(sf::Vector2f size,sf::Vector2f pos,std::string file_path,int Apadding): Button(size,pos,Apadding){
-    if(!texture.loadFromFile(file_path)){
-        std::cout << "Image not loaded!" << std::endl;
-    }
-    rect.setTexture(&texture);
+Image_Button::Image_Button(sf::Vector2f scale,sf::Vector2f pos,std::string file_path,int Apadding):texture(file_path),sprite(texture){
+    texture.setSmooth(true);
+    sprite.setPosition(pos);
+    sprite.setColor(base_color);
+    original_scale = scale;
+    sprite.setScale(original_scale);
 }
 
 void Image_Button::draw_button(sf::RenderWindow& window){
-    window.draw(rect);
+    window.draw(sprite);
+}
+
+void Image_Button::set_button_color(sf::Color Abase_color,sf::Color Ahighlighted_color){
+    base_color = Abase_color;
+    highlighted_color = Ahighlighted_color;
+}
+
+void Image_Button::update_button(sf::RenderWindow& window,Mouse& mouse){
+    sf::Vector2f mouse_pos = mouse.get_mouse_position(window);
+    if(check_point_rect_collision(mouse_pos,sprite.getGlobalBounds())){
+        sprite.setScale(original_scale + sf::Vector2f(0.1,0.1));
+        sprite.setColor(highlighted_color);
+    }
+    else{
+        sprite.setScale(original_scale);
+        sprite.setColor(base_color);
+    }
+    draw_button(window);
 }

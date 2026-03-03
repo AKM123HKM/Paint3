@@ -28,10 +28,16 @@ class Text_Button:public Button{
         void draw_button(sf::RenderWindow& window);
 };
 
-class Image_Button:public Button{
+class Image_Button{
     public:
         sf::Texture texture;
+        sf::Sprite sprite = sf::Sprite(texture);
+        sf::Vector2f original_scale;
+        sf::Color base_color = sf::Color(200,200,200);
+        sf::Color highlighted_color = sf::Color(170,170,170);
 
-        Image_Button(sf::Vector2f size,sf::Vector2f pos,std::string file_path,int Apadding = 0);
+        Image_Button(sf::Vector2f scale,sf::Vector2f pos,std::string file_path,int Apadding = 0);
         void draw_button(sf::RenderWindow& window);
+        void set_button_color(sf::Color base_color,sf::Color highlighted_color);
+        void update_button(sf::RenderWindow& window,Mouse& mouse);
 };
