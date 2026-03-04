@@ -5,6 +5,8 @@
 #include "sidebar.h"
 
 const sf::Color BG_COLOR = sf::Color::White;
+const sf::Vector2f CANVAS_SIZE = sf::Vector2f(800,600);
+const sf::Vector2f CANVAS_POS = sf::Vector2f(0,0);
 
 class Paint{
     public:

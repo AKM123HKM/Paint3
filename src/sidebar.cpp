@@ -5,7 +5,7 @@ void ToggleButtons::add_button(Image_Button* button){
 }
 
 void ToggleButtons::toggle_button(Image_Button* button){
-    // if(current_button){
+    if(current_button){
         current_button->clicked = false;
         if(current_button == button){
             current_button = nullptr;
@@ -14,11 +14,11 @@ void ToggleButtons::toggle_button(Image_Button* button){
             current_button = button;
             current_button->clicked = true;
         }
-    // }
-    // else{
-    //     current_button = button;
-    //     current_button-> clicked = true;
-    // }
+    }
+    else{
+        current_button = button;
+        current_button-> clicked = true;
+    }
 }
 
 SideBar::SideBar():eraser_button(eraser_data),

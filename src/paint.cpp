@@ -1,6 +1,6 @@
 #include "paint.h"
 
-Paint::Paint(){
+Paint::Paint():canvas(CANVAS_SIZE,CANVAS_POS){
     if(!font.openFromFile("../assets/PoetsenOne-Regular.ttf")){
         std::cout << "Font not loaded!" << std::endl;
     }
