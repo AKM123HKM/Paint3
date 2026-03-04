@@ -1,6 +1,7 @@
 #pragma once
 #include "mouse_utility.h"
 #include "utility.h"
+#include <iostream>
 
 class Button{
     public:
@@ -28,14 +29,25 @@ class Text_Button:public Button{
         void draw_button(sf::RenderWindow& window);
 };
 
+struct ImageButtonData{
+    sf::Vector2f scale;
+    sf::Vector2f pos;
+    std::string base_file_path;
+    std::string highlighted_file_path;
+    std::string clicked_file_path;
+};
+
 class Image_Button{
     public:
         sf::Texture texture;
         sf::Texture highlighted_texture;
+        sf::Texture clicked_texture;
         sf::Sprite sprite = sf::Sprite(texture);
         sf::Vector2f original_scale;
+        bool clicked = false;
 
-        Image_Button(sf::Vector2f scale,sf::Vector2f pos,std::string image_path,std::string highlighted_image_path);
+        Image_Button(ImageButtonData data);
         void draw_button(sf::RenderWindow& window);
+        bool is_clicked();
         void update_button(sf::RenderWindow& window,Mouse& mouse);
 };

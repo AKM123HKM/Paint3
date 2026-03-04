@@ -50,19 +50,25 @@ void Text_Button::draw_button(sf::RenderWindow& window){
     window.draw(text);
 }
 
-Image_Button::Image_Button(sf::Vector2f scale,sf::Vector2f pos,std::string image_path,std::string highlighted_image_path):
-                           texture(image_path),
+Image_Button::Image_Button(ImageButtonData data):
+                           texture(data.base_file_path),
                            sprite(texture),
-                           highlighted_texture(highlighted_image_path){
+                           highlighted_texture(data.highlighted_file_path),
+                           clicked_texture(data.clicked_file_path){
     texture.setSmooth(true);
     highlighted_texture.setSmooth(true);
-    sprite.setPosition(pos);
-    original_scale = scale;
+    clicked_texture.setSmooth(true);
+    sprite.setPosition(data.pos);
+    original_scale = data.scale;
     sprite.setScale(original_scale);
 }
 
 void Image_Button::draw_button(sf::RenderWindow& window){
     window.draw(sprite);
+}
+
+bool Image_Button::is_clicked(){
+    return clicked;
 }
 
 void Image_Button::update_button(sf::RenderWindow& window,Mouse& mouse){
@@ -74,6 +80,9 @@ void Image_Button::update_button(sf::RenderWindow& window,Mouse& mouse){
     else{
         sprite.setScale(original_scale);
         sprite.setTexture(texture);
+    }
+    if(clicked){
+        sprite.setTexture(clicked_texture);
     }
     draw_button(window);
 }
