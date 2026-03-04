@@ -46,11 +46,11 @@ void Canvas::add_rectangle_vertexes(sf::Vector2f mouse_pos){
     else{
         temp_point = mouse_pos;
     }
-    canvas.draw(stroke);
-    stroke.clear();
 }
 
 void Canvas::add_stroke(){
+    canvas.draw(stroke);
+    stroke.clear();
     temp_point = sf::Vector2f(-1,-1);
 }
 
@@ -59,4 +59,5 @@ void Canvas::draw_strokes(sf::RenderWindow& window){
     sf::Sprite sprite(canvas.getTexture());
     sprite.setPosition(canvas_pos);
     window.draw(sprite);
+    window.draw(stroke);
 }

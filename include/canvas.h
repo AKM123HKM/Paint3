@@ -7,7 +7,6 @@ class Canvas{
         sf::VertexArray stroke = sf::VertexArray(sf::PrimitiveType::TriangleStrip);
         sf::RenderTexture canvas;
         sf::Vector2f canvas_pos;
-        // std::vector<sf::VertexArray> strokes = {sf::VertexArray(sf::PrimitiveType::TriangleStrip)};
         sf::Color stroke_color = sf::Color::Red;
         float stroke_thickness = 10;
         sf::Vector2f temp_point = sf::Vector2f(-1,-1);
