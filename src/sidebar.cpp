@@ -34,11 +34,9 @@ void SideBar::update(sf::RenderWindow& window,Mouse& mouse){
     if(compare_mouse_events(mouse.get_button_event(sf::Mouse::Button::Left),MouseButtonEvents::Click)){
         if(check_point_rect_collision(mouse_pos,eraser_button.sprite.getGlobalBounds())){
             group1.toggle_button(&eraser_button);
-            std::cout << "Eraser_Button" << std::endl;
         }
         else if(check_point_rect_collision(mouse_pos,save_button.sprite.getGlobalBounds())){
             group1.toggle_button(&save_button);
-            std::cout << "Save_Button" << std::endl;
         }
     }
 }

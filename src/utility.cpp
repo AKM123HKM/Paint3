@@ -55,3 +55,10 @@ bool check_point_rect_collision(sf::Vector2f pos,sf::FloatRect rect){
     }
     return false;
 }
+
+sf::Vector2f get_perpendicular(sf::Vector2f x,sf::Vector2f y){
+    sf::Vector2f dir = x - y;
+    float magnitude = sqrt(dir.x*dir.x + dir.y*dir.y);
+    sf::Vector2f normalized_dir = dir / magnitude;
+    return sf::Vector2f(normalized_dir.y * -1.f, normalized_dir.x);
+}
