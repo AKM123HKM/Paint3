@@ -1,104 +1,89 @@
 #include "tools.h"
 
-PencilTool::PencilTool(int Asize){
-    size = sf::Vector2i(Asize,Asize);
+void PencilTool::add_rectangle_vertex(Canvas& canvas,sf::Vector2f mouse_pos){
+    if(!(temp_point.x == -1) && !(temp_point == mouse_pos)){
+        sf::Vector2f perpendicular_dir = get_perpendicular(mouse_pos,temp_point);
+        sf::Vector2f pos1 = sf::Vector2f((perpendicular_dir * (stroke_thickness/2)) + temp_point);
+        sf::Vector2f pos2 = sf::Vector2f(((perpendicular_dir * -1.f) * (stroke_thickness/2)) + temp_point);
+        sf::Vector2f pos3 = sf::Vector2f((perpendicular_dir * (stroke_thickness/2)) + mouse_pos);
+        sf::Vector2f pos4 = sf::Vector2f(((perpendicular_dir * -1.f) * (stroke_thickness/2)) + mouse_pos);
+
+        stroke.append(sf::Vertex(pos1,stroke_color));
+        stroke.append(sf::Vertex(pos2,stroke_color));
+        stroke.append(sf::Vertex(pos3,stroke_color));
+        
+        stroke.append(sf::Vertex(pos2,stroke_color));
+        stroke.append(sf::Vertex(pos3,stroke_color));
+        stroke.append(sf::Vertex(pos4,stroke_color));
+
+        temp_point = mouse_pos;
+    }
+    else{
+        temp_point = mouse_pos;
+    }
 }
 
-void PencilTool::update(sf::RenderWindow& window,Canvas& canvas,Mouse& mouse){
-    sf::Vector2f mouse_pos = mouse.get_mouse_position(window);
-    if(check_point_rect_collision(mouse_pos,sf::FloatRect(canvas.canvas_sprite.getGlobalBounds()))){
-        if(compare_mouse_states(mouse.get_button_state(sf::Mouse::Button::Left),MouseButtonStates::Pressed)){
-            add_rect(mouse_pos,canvas);
+void PencilTool::change_color(sf::Color color){
+    stroke_color = color;
+}
+
+void PencilTool::add_stroke(Canvas& canvas){
+    sf::VertexArray transformed_stroke = sf::VertexArray(sf::PrimitiveType::TriangleStrip);
+    for(int i = 0;i < stroke.getVertexCount();i++){
+        sf::Vertex transformed_vertex = sf::Vertex(canvas.canvas_sprite.getInverseTransform().transformPoint(stroke[i].position),stroke[i].color);
+        transformed_stroke.append(transformed_vertex);
+    }   
+    canvas.canvas.draw(transformed_stroke);
+    stroke.clear();
+    temp_point = sf::Vector2f(-1,-1);
+}
+
+void PencilTool::draw(sf::RenderWindow& window){
+    window.draw(stroke);
+}
+
+void PencilTool::update(Canvas& canvas,sf::RenderWindow& window,Mouse& mouse){
+    MouseButtonStates left_button_state = mouse.get_button_state(sf::Mouse::Button::Left);
+    MouseButtonEvents left_button_event = mouse.get_button_event(sf::Mouse::Button::Left);
+    if(compare_mouse_states(left_button_state,MouseButtonStates::Pressed)){
+        sf::Vector2f mouse_pos = mouse.get_mouse_position(window);
+        if(check_point_rect_collision(mouse_pos,canvas.canvas_sprite.getGlobalBounds())){
+            add_rectangle_vertex(canvas,mouse_pos);
         }
         else{
-            add_stroke();
+            add_stroke(canvas);
         }
     }
-    else{
-        add_stroke();
+    if(compare_mouse_events(left_button_event,MouseButtonEvents::Release_Transition)){
+        add_stroke(canvas);
     }
-    draw(canvas);
+    draw(window);
 }
 
-void PencilTool::add_stroke(){
-    rect_stroke.clear();
-    temp_pos = sf::Vector2f(-1,-1);
+void EraserTool::add_stroke(Canvas& canvas){
+    stroke.clear();
+    temp_point = sf::Vector2f(-1,-1);
 }
 
-void PencilTool::add_rect(sf::Vector2f mouse_pos,Canvas& canvas){
-    if(!(temp_pos.x < 0) && !(temp_pos == mouse_pos)){
-        sf::Vector2f dir = mouse_pos - temp_pos;
-        float magnitude = sqrt(dir.x*dir.x + dir.y*dir.y);
-        sf::Vector2f perpendicular_dir = get_perpendicular(mouse_pos,temp_pos);
-        int loops = magnitude/size.x;
-        for(int i = 0;i <= loops;i++){
-            float mulitplier = i;
-            sf::RectangleShape rect = sf::RectangleShape(sf::Vector2f(size));
-            rect.setPosition(dir*mulitplier);
-            rect.setFillColor(canvas.stroke_color);
-            rect_stroke.push_back(rect);
+void EraserTool::update(Canvas& canvas,sf::RenderWindow& window,Mouse& mouse){
+    MouseButtonStates left_button_state = mouse.get_button_state(sf::Mouse::Button::Left);
+    MouseButtonEvents left_button_event = mouse.get_button_event(sf::Mouse::Button::Left);
+    if(compare_mouse_states(left_button_state,MouseButtonStates::Pressed)){
+        sf::Vector2f mouse_pos = mouse.get_mouse_position(window);
+        if(check_point_rect_collision(mouse_pos,canvas.canvas_sprite.getGlobalBounds())){
+            add_rectangle_vertex(canvas,mouse_pos);
         }
-        temp_pos = mouse_pos;
-    }
-    else{
-        temp_pos = mouse_pos;
-    }
-}
-
-void PencilTool::draw(Canvas& canvas){
-    for(auto rect:rect_stroke){
-        canvas.canvas.draw(rect);
-    }
-}
-
-EraserTool::EraserTool(int Asize):PencilTool(Asize){
-}
-
-void EraserTool::add_stroke(){
-    rect_stroke.clear();
-    sprite_stroke.clear();
-    temp_pos = sf::Vector2f(-1,-1);
-}
-
-void EraserTool::add_rect(sf::Vector2f mouse_pos,Canvas& canvas){
-    if(!(temp_pos.x < 0) && !(temp_pos == mouse_pos)){
-        sf::Vector2f dir = mouse_pos - temp_pos;
-        float magnitude = sqrt(dir.x*dir.x + dir.y*dir.y);
-        sf::Vector2f perpendicular_dir = get_perpendicular(mouse_pos,temp_pos);
-        int loops = magnitude/size.x;
-        for(int i = 0;i <= loops;i++){
-            float mulitplier = i;
-            if(canvas.is_background){
-                sf::Sprite restore(canvas.background);
-                sf::IntRect rect(sf::Vector2i(canvas.canvas_sprite.getInverseTransform().transformPoint(dir * mulitplier)),size);
-                restore.setTextureRect(rect);
-                restore.setPosition(dir*mulitplier);
-                sprite_stroke.push_back(restore);
-                std::cout << "Hi" << std::endl;
-            }
-            else{
-                sf::RectangleShape rect = sf::RectangleShape(sf::Vector2f(size));
-                rect.setPosition(dir*mulitplier);
-                rect.setFillColor(sf::Color::White);
-                rect_stroke.push_back(rect);
-            }
-        }
-        temp_pos = mouse_pos;
-    }
-    else{
-        temp_pos = mouse_pos;
-    }
-}
-
-void EraserTool::draw(Canvas& canvas){
-    if(canvas.is_background){
-        for(auto rect:sprite_stroke){
-            canvas.canvas.draw(rect);
+        else{
+            add_stroke(canvas);
         }
     }
-    else{
-        for(auto rect:rect_stroke){
-            canvas.canvas.draw(rect);
-        }
+    if(compare_mouse_events(left_button_event,MouseButtonEvents::Release_Transition)){
+        add_stroke(canvas);
     }
+    sf::VertexArray transformed_stroke = sf::VertexArray(sf::PrimitiveType::TriangleStrip);
+    for(int i = 0;i < stroke.getVertexCount();i++){
+        sf::Vertex transformed_vertex = sf::Vertex(canvas.canvas_sprite.getInverseTransform().transformPoint(stroke[i].position),stroke[i].color);
+        transformed_stroke.append(transformed_vertex);
+    }   
+    canvas.canvas.draw(transformed_stroke,eraserBlend);
 }
