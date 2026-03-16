@@ -3,12 +3,12 @@
 #include "mouse_utility.h"
 #include <vector>
 
-class Canvas{
+class Layer{
     public:
         sf::Texture background;
         bool is_background = false;
-        sf::RenderTexture canvas;
-        sf::Sprite canvas_sprite;
-        Canvas(sf::Vector2f size,sf::Vector2f pos,std::string background_file_path = "");
+        sf::RenderTexture texture;
+        sf::Sprite texture_sprite;
+        Layer(sf::Vector2f size,sf::Vector2f pos,std::string background_file_path = "");
         void draw(sf::RenderWindow& window);
 };

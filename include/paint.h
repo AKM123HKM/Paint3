@@ -1,9 +1,11 @@
 #pragma once
-#include "canvas.h"
+#include "layer.h"
 #include "mouse_utility.h"
 #include "button_utility.h"
 #include "tools.h"
 #include "sidebar.h"
+#include <vector>
+#include <memory>
 
 const sf::Color BG_COLOR = sf::Color::White;
 const sf::Vector2f CANVAS_SIZE = sf::Vector2f(800,516);
@@ -16,8 +18,8 @@ struct Tools{
 
 class Paint{
     public:
-    Canvas canvas;
-    sf::RenderTexture background;
+    std::vector<std::unique_ptr<Layer>> layers;
+    Layer* current_layer = nullptr;
     Mouse mouse;
     sf::Font font;
     SideBar sidebar;
