@@ -42,6 +42,15 @@ void PencilTool::draw(sf::RenderWindow& window){
     window.draw(stroke);
 }
 
+void PencilTool::change_thickness(float Athickness){
+    if(Athickness < 50 && Athickness > 1){
+        stroke_thickness = Athickness;
+    }
+    else{
+        std::cout << "THICKNESS IS OUT OF BOUNDS!" << std::endl;
+    }
+}
+
 void PencilTool::update(Layer& layer,sf::RenderWindow& window,Mouse& mouse){
     MouseButtonStates left_button_state = mouse.get_button_state(sf::Mouse::Button::Left);
     MouseButtonEvents left_button_event = mouse.get_button_event(sf::Mouse::Button::Left);

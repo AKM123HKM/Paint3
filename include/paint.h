@@ -3,7 +3,7 @@
 #include "mouse_utility.h"
 #include "button_utility.h"
 #include "tools.h"
-#include "sidebar.h"
+#include "button_group.h"
 #include <vector>
 #include <memory>
 
@@ -22,13 +22,26 @@ class Paint{
     Layer* current_layer = nullptr;
     Mouse mouse;
     sf::Font font;
-    SideBar sidebar;
+    ButtonGroup sidebar;
+    // SideBar sidebar;
     sf::Color current_color = sf::Color::Red;
     sf::Color eraser_color = BG_COLOR;
     Tools tools;
     Tool* current_tool = &(tools.pencil);
 
-    Paint();
-    void handle_sidebar_buttons();
+    std::map<std::string,std::function<void()>> bindings = {
+        {"eraser",[this]()mutable{
+            if(current_tool != &tools.eraser){
+                current_tool = &tools.eraser;
+            }
+            else{
+                current_tool = &tools.pencil;
+            }
+        }},
+        {"save",[](){std::cout << "Saving...." << std::endl;}},
+        {"add_layer",[](){std::cout << "Added Layer :P" << std::endl;}}
+    };
+
+    Paint(nlohmann::json data);
     void run(sf::RenderWindow& window);
 };

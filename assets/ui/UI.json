@@ -1,0 +1,39 @@
+{"groups":[
+    {"id":"sidebar",
+     "elements":[
+        {
+            "id":"tools",
+            "type":"toggle_group",
+            "elements":[
+                {
+                    "id":"eraser",
+                    "type":"button",
+                    "scale":[1,1],
+                    "pos":[10,10],
+                    "texture":"../assets/eraser.png",
+                    "highlighted_texture":"../assets/highlighted_eraser.png",
+                    "selected_texture":"../assets/clicked_eraser.png"
+                },
+                {
+                    "id":"save",
+                    "type":"button",
+                    "scale":[1,1],
+                    "pos":[84,10],
+                    "texture":"../assets/save.png",
+                    "highlighted_texture":"../assets/highlighted_save.png",
+                    "selected_texture":"../assets/clicked_save.png"
+                }
+            ]
+
+        },
+        {
+            "id":"add_layer",
+            "type":"button",
+            "scale":[1,1],
+            "pos":[158,10],
+            "texture":"../assets/eraser.png",
+            "highlighted_texture":"../assets/highlighted_eraser.png",
+            "selected_texture":"../assets/clicked_eraser.png"
+        }
+     ]}
+]}

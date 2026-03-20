@@ -24,10 +24,11 @@ class PencilTool:public Tool{
         void add_stroke(Layer& layer);
         void draw(sf::RenderWindow& window);
         void change_color(sf::Color color);
+        void change_thickness(float Athickness);
         void update(Layer& layer,sf::RenderWindow& window,Mouse& mouse);
 
     protected:
-        float stroke_thickness = 10;
+        float stroke_thickness = 1;
         sf::Color stroke_color = sf::Color::Red;
 };
 
@@ -36,6 +37,7 @@ class EraserTool:public PencilTool{
         void add_stroke(Layer& layer);
         void update(Layer& layer,sf::RenderWindow& window,Mouse& mouse);
     protected:
+        float stroke_thickness = 20;
         sf::BlendMode eraserBlend = sf::BlendMode(
             sf::BlendMode::Factor::Zero,
             sf::BlendMode::Factor::One,

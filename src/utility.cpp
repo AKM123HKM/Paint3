@@ -62,3 +62,13 @@ sf::Vector2f get_perpendicular(sf::Vector2f x,sf::Vector2f y){
     sf::Vector2f normalized_dir = dir / magnitude;
     return sf::Vector2f(normalized_dir.y * -1.f, normalized_dir.x);
 }
+
+nlohmann::json loadJSON(const std::string file_path){
+    std::ifstream file(file_path);
+    if(!file){
+        throw std::runtime_error("Failed to load the file!");
+    }
+    nlohmann::json data;
+    file >> data;
+    return data;
+}

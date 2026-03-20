@@ -12,9 +12,8 @@ int main() {
     window.setFramerateLimit(60);
     sf::Vector2f size = sf::Vector2f(50,50);
     sf::Vector2f pos = sf::Vector2f(100,100);
-    Paint paint;
-    std::cout << std::is_copy_constructible_v<Paint> << std::endl;
-    std::cout << std::is_copy_assignable_v<Paint> << std::endl;
+    nlohmann::json data = loadJSON("../assets/ui/UI.json");
+    Paint paint(data["groups"][0]);
 
     while (window.isOpen()) {
         while (const std::optional event = window.pollEvent()){
