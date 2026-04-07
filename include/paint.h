@@ -1,15 +1,14 @@
 #pragma once
 #include "layer.h"
 #include "mouse_utility.h"
-#include "button_utility.h"
+#include "my_ui.h"
 #include "tools.h"
-#include "button_group.h"
 #include <vector>
 #include <memory>
 
 const sf::Color BG_COLOR = sf::Color::White;
-const sf::Vector2f CANVAS_SIZE = sf::Vector2f(800,516);
-const sf::Vector2f CANVAS_POS = sf::Vector2f(0,84);
+const sf::Vector2f CANVAS_SIZE = sf::Vector2f(800,566);
+const sf::Vector2f CANVAS_POS = sf::Vector2f(0,35);
 
 struct Tools{
     PencilTool pencil;
@@ -21,9 +20,8 @@ class Paint{
     std::vector<std::unique_ptr<Layer>> layers;
     Layer* current_layer = nullptr;
     Mouse mouse;
+    UI ui;
     sf::Font font;
-    ButtonGroup sidebar;
-    // SideBar sidebar;
     sf::Color current_color = sf::Color::Red;
     sf::Color eraser_color = BG_COLOR;
     Tools tools;
@@ -37,11 +35,18 @@ class Paint{
             else{
                 current_tool = &tools.pencil;
             }
-        }},
-        {"save",[](){std::cout << "Saving...." << std::endl;}},
-        {"add_layer",[](){std::cout << "Added Layer :P" << std::endl;}}
+        }
+    },
+        {"add_layers",[this](){
+            ui.layers.add_element();
+            }
+    },
+        {"show_layers",[this]()mutable{
+            ui.toggle_layers = !(ui.toggle_layers);
+        }
+    }
     };
 
-    Paint(nlohmann::json data);
+    Paint(nlohmann::json data,sf::RenderTarget& target);
     void run(sf::RenderWindow& window);
 };

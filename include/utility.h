@@ -21,3 +21,5 @@ bool check_point_rect_collision(sf::Vector2f pos,sf::FloatRect rect);
 sf::Vector2f get_perpendicular(sf::Vector2f x,sf::Vector2f y);
 
 nlohmann::json loadJSON(const std::string file_path);
+
+sf::Vector2f my_view_transform(sf::Vector2f mouse_pos,sf::RenderTarget* target);

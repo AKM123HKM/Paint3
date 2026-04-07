@@ -10,18 +10,17 @@
 int main() {
     sf::RenderWindow window(sf::VideoMode({800, 600}), "Paint 3",sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(60);
-    sf::Vector2f size = sf::Vector2f(50,50);
-    sf::Vector2f pos = sf::Vector2f(100,100);
     nlohmann::json data = loadJSON("../assets/ui/UI.json");
-    Paint paint(data["groups"][0]);
+    Paint paint(data,window);
 
-    while (window.isOpen()) {
+    while (window.isOpen()){
         while (const std::optional event = window.pollEvent()){
             if (event->is<sf::Event::Closed>()) {
                 window.close();
             }
         }
         
+        window.clear();
         window.clear(BG_COLOR);
         paint.run(window);
         window.display();

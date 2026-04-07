@@ -1,39 +1,117 @@
 {"groups":[
     {"id":"sidebar",
+     "type":"group",
+     "pos":[0,0],
+     "size":[121,34],
+     "color":[100,100,100],
      "elements":[
         {
             "id":"tools",
-            "type":"toggle_group",
+            "type":"group",
+            "pos":[0,0],
+            "size":[63,34],
+            "color":[100,100,100],
             "elements":[
                 {
                     "id":"eraser",
                     "type":"button",
                     "scale":[1,1],
-                    "pos":[10,10],
-                    "texture":"../assets/eraser.png",
-                    "highlighted_texture":"../assets/highlighted_eraser.png",
-                    "selected_texture":"../assets/clicked_eraser.png"
+                    "pos":[5,5],
+                    "texture":"../assets/Eraser.png",
+                    "highlighted_texture":"../assets/Eraser_Hover.png",
+                    "selected_texture":"../assets/Eraser_Selected.png"
                 },
                 {
                     "id":"save",
                     "type":"button",
                     "scale":[1,1],
-                    "pos":[84,10],
-                    "texture":"../assets/save.png",
-                    "highlighted_texture":"../assets/highlighted_save.png",
-                    "selected_texture":"../assets/clicked_save.png"
+                    "pos":[34,5],
+                    "texture":"../assets/Save.png",
+                    "highlighted_texture":"../assets/Save_Hover.png",
+                    "selected_texture":"../assets/Save_Selected.png"
                 }
             ]
 
         },
         {
-            "id":"add_layer",
-            "type":"button",
-            "scale":[1,1],
-            "pos":[158,10],
-            "texture":"../assets/eraser.png",
-            "highlighted_texture":"../assets/highlighted_eraser.png",
-            "selected_texture":"../assets/clicked_eraser.png"
+            "id":"layers_group",
+            "type":"group",
+            "pos":[58,0],
+            "size":[63,34],
+            "color":[100,100,100],
+            "elements":[
+                {
+                    "id":"add_layers",
+                    "type":"button",
+                    "scale":[1,1],
+                    "pos":[5,5],
+                    "texture":"../assets/Add.png",
+                    "highlighted_texture":"../assets/Add_Hover.png",
+                    "selected_texture":"../assets/Add_Selected.png"
+                },
+                {
+                    "id":"show_layers",
+                    "type":"button",
+                    "scale":[1,1],
+                    "pos":[34,5],
+                    "texture":"../assets/Down.png",
+                    "highlighted_texture":"../assets/Down_Hover.png",
+                    "selected_texture":"../assets/Down_Selected.png"
+                }
+            ]
         }
-     ]}
+     ]},
+     {
+        "id":"layers",
+        "type":"group",
+        "pos":[116,35],
+        "size":[121,600],
+        "color":[0,0,0],
+        "elements":
+            [{
+                "id":"layer_template",
+                "type":"group",
+                "pos":[0,0],
+                "size":[121,58],
+                "color":[100,100,100],
+                "elements":[
+                {
+                    "id":"move_up",
+                    "type":"button",
+                    "scale":[1,1],
+                    "pos":[5,5],
+                    "texture":"../assets/Up.png",
+                    "highlighted_texture":"../assets/Up_Hover.png",
+                    "selected_texture":"../assets/Up_Selected.png"
+                },
+                {
+                    "id":"move_down",
+                    "type":"button",
+                    "scale":[1,1],
+                    "pos":[34,5],
+                    "texture":"../assets/Down.png",
+                    "highlighted_texture":"../assets/Down_Hover.png",
+                    "selected_texture":"../assets/Down_Selected.png"
+                },
+                {
+                    "id":"toogle_visibility",
+                    "type":"button",
+                    "scale":[1,1],
+                    "pos":[63,5],
+                    "texture":"../assets/Show.png",
+                    "highlighted_texture":"../assets/Show_Hover.png",
+                    "selected_texture":"../assets/Show_Selected.png"
+                },
+                {
+                    "id":"delete",
+                    "type":"button",
+                    "scale":[1,1],
+                    "pos":[92,5],
+                    "texture":"../assets/Trash.png",
+                    "highlighted_texture":"../assets/Trash_Hover.png",
+                    "selected_texture":"../assets/Trash_Selected.png"
+                }
+                ]
+            }]
+     }
 ]}

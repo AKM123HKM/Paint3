@@ -72,3 +72,17 @@ nlohmann::json loadJSON(const std::string file_path){
     file >> data;
     return data;
 }
+
+sf::Vector2f my_view_transform(sf::Vector2f mouse_pos,sf::RenderTarget* target){
+    sf::View original_view = target->getDefaultView();
+    sf::View new_view = target->getView();
+    sf::Vector2f new_view_center = new_view.getCenter();
+    sf::Vector2f new_view_size = new_view.getSize();
+    sf::Vector2f original_view_centre = original_view.getCenter();
+    sf::Vector2f original_view_size = original_view.getSize();
+    sf::Vector2f new_view_pos = new_view_center - (new_view_size/2.f);
+    // new_x = start_x + (original_length/new_length) * old_x;
+    float new_x  = new_view_pos.x + (new_view_size.x/original_view_size.x) * mouse_pos.x;
+    float new_y = new_view_pos.y + (new_view_size.y/original_view_size.y) * mouse_pos.y;
+    return sf::Vector2f(new_x,new_y);
+}

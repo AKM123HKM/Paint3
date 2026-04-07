@@ -16,15 +16,16 @@ float Mouse::magnitude(sf::Vector2f vec){
 }
 
 sf::Vector2f Mouse::get_mouse_position(sf::RenderWindow& window){
-	sf::Vector2i int_mouse_pos =  sf::Mouse::getPosition(window);
-	sf::Vector2f mouse_pos = sf::Vector2f(int_mouse_pos);
+	sf::Vector2i mouse_pixel =  sf::Mouse::getPosition(window);
+	sf::Vector2f mouse_pos = window.mapPixelToCoords(mouse_pixel);
 
 	return mouse_pos;
 }
 
 void Mouse::updateMousePosition(sf::RenderWindow& window){
 	prev_mouse_pos = current_mouse_pos;
-	current_mouse_pos = sf::Vector2f(sf::Mouse::getPosition(window));
+	sf::Vector2i mouse_pixel = sf::Mouse::getPosition(window);
+	current_mouse_pos = window.mapPixelToCoords(mouse_pixel);
 }
 
 void Mouse::updateButton(sf::Mouse::Button aButton){
