@@ -8,4 +8,4 @@ The "utility" files that i create are created in a way that they can be reused i
 
 **Further information will be uploaded once i will have enogh features to actually talk about**
 New Dynamic Groups, which allow me to add groups during runtime, though the icons i downloaded are bugged for some reason.
-![New Eraser Tool in Action](assets/Eraser_showcase.gif)
+![New Eraser Tool in Action](assets/Eraser_showcase2.gif)
