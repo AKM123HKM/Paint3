@@ -8,8 +8,8 @@
 class Tool{
     public:
         virtual ~Tool() = default;
-        virtual void add_rectangle_vertex(Layer& layer,sf::Vector2f mouse_pos) = 0;
-        virtual void add_stroke(Layer& layer) = 0;
+        virtual void addRectangleVertex(Layer& layer,sf::Vector2f mouse_pos) = 0;
+        virtual void addStroke(Layer& layer) = 0;
         virtual void draw(sf::RenderWindow& window) = 0;
         virtual void update(Layer& layer,sf::RenderWindow& window,Mouse& mouse) = 0;
 
@@ -20,11 +20,11 @@ class Tool{
 
 class PencilTool:public Tool{
     public:
-        void add_rectangle_vertex(Layer& layer,sf::Vector2f mouse_pos);
-        void add_stroke(Layer& layer);
+        void addRectangleVertex(Layer& layer,sf::Vector2f mouse_pos);
+        void addStroke(Layer& layer);
         void draw(sf::RenderWindow& window);
-        void change_color(sf::Color color);
-        void change_thickness(float Athickness);
+        void changeColor(sf::Color color);
+        void changeThickness(float Athickness);
         void update(Layer& layer,sf::RenderWindow& window,Mouse& mouse);
 
     protected:
@@ -34,7 +34,7 @@ class PencilTool:public Tool{
 
 class EraserTool:public PencilTool{
     public:
-        void add_stroke(Layer& layer);
+        void addStroke(Layer& layer);
         void update(Layer& layer,sf::RenderWindow& window,Mouse& mouse);
     protected:
         float stroke_thickness = 20;

@@ -1,11 +1,5 @@
-This is a third re-attempt on making a paint app in c++ using SFML. I am going to implement basic paint features like Pen Tool, Eraser, Fill Bucket, save/open drawing, layers, Resizable canvas. 
-The file structure is very basic:
-i) The .cpp files are in src folder
-ii) The headers are in include folder
-iii) The fonts and images used are in assets folder
-
-The "utility" files that i create are created in a way that they can be reused in other projects too, like the mouse_utility and button_utility.
-
-**Further information will be uploaded once i will have enogh features to actually talk about**
-New Dynamic Groups, which allow me to add groups during runtime, though the icons i downloaded are bugged for some reason.
-![New Eraser Tool in Action](assets/Eraser_showcase2.gif)
+This is the third version of a basic paint app which uses SFML.
+This project also includes a basic UI library also written using SFML.
+Both are currently WIP, though I have implemented the basic Pen , Eraser Tool, Layers in the Paint app,
+and UIElements like buttons,Scrollbar,Static Group and Dynamic Groups.
+![Project Showcase](assets/Project_showcase.gif)

@@ -4,6 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
 #include "json.hpp"
+#include "button_utility.h"
+#include "event_utility.h"
 
 
 std::ostream& operator<<(std::ostream& os, MouseButtonStates button_states);
@@ -12,14 +14,22 @@ std::ostream& operator<<(std::ostream& os, MouseButtonEvents button_events);
 
 std::ostream& operator<<(std::ostream& os, sf::Vector2f vector);
 
-bool compare_mouse_states(MouseButtonStates a, MouseButtonStates b);
+std::ostream& operator<<(std::ostream& os, std::vector<int> vector);
 
-bool compare_mouse_events(MouseButtonEvents a, MouseButtonEvents b);
+std::ostream& operator<<(std::ostream& os,CustomEvent event);
 
-bool check_point_rect_collision(sf::Vector2f pos,sf::FloatRect rect);
+std::ostream& operator<<(std::ostream& os,Event event);
 
-sf::Vector2f get_perpendicular(sf::Vector2f x,sf::Vector2f y);
+bool compareMouseStates(MouseButtonStates a, MouseButtonStates b);
+
+bool compareMouseEvents(MouseButtonEvents a, MouseButtonEvents b);
+
+bool checkPointRectCollision(sf::Vector2f pos,sf::FloatRect rect);
+
+sf::Vector2f getPerpendicular(sf::Vector2f x,sf::Vector2f y);
 
 nlohmann::json loadJSON(const std::string file_path);
 
-sf::Vector2f my_view_transform(sf::Vector2f mouse_pos,sf::RenderTarget* target);
+sf::Vector2f toLocalView(sf::Vector2f mouse_pos,sf::RenderTarget* target);
+
+bool operator==(CustomEvent event1,CustomEvent event2);

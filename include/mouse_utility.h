@@ -24,7 +24,7 @@ struct MouseButton{
 	bool is_pressed{false};
 	MouseButtonStates state = MouseButtonStates::Idle;
 	MouseButtonEvents event = MouseButtonEvents::None;
-	float drage_value{0.0f};
+	sf::Vector2f drag_value = sf::Vector2f(0,0);
 };
 
 class Mouse{
@@ -35,18 +35,19 @@ private:
 	sf::Vector2f current_mouse_pos;
 	sf::Vector2f prev_mouse_pos;
 	const double HOLD_THRESHOLD = 0.5;
-	const double DRAG_THRESHOLD = 4.0;
+	const double DRAG_THRESHOLD = 1.0;
 	const double DOUBLE_CLICK_THRESHOLD = 1;
 
-	MouseButton& check_button(sf::Mouse::Button button);
+	MouseButton& checkButton(sf::Mouse::Button button);
 
 	float magnitude(sf::Vector2f vec);
 
 public:
 
-	sf::Vector2f get_mouse_position(sf::RenderWindow& window);
+	sf::Vector2f getMousePosition(sf::RenderWindow& window);
 	void updateMousePosition(sf::RenderWindow& window);
 	void updateButton(sf::Mouse::Button);
-	MouseButtonEvents get_button_event(sf::Mouse::Button);
-	MouseButtonStates get_button_state(sf::Mouse::Button);
+	MouseButtonEvents getButtonEvent(sf::Mouse::Button);
+	MouseButtonStates getButtonState(sf::Mouse::Button);
+	sf::Vector2f getButtonDragValue(sf::Mouse::Button);
 };

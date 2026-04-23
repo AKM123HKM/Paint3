@@ -2,21 +2,24 @@
     {"id":"sidebar",
      "type":"group",
      "pos":[0,0],
-     "size":[121,34],
-     "color":[100,100,100],
+     "color":[200,200,200],
+     "horizontal_orientation":true,
+     "offset":[2,2],
      "elements":[
         {
             "id":"tools",
             "type":"group",
             "pos":[0,0],
-            "size":[63,34],
-            "color":[100,100,100],
+            "color":[200,200,200],
+            "horizontal_orientation":true,
+            "offset":[2,2],
             "elements":[
                 {
                     "id":"eraser",
                     "type":"button",
+                    "toggle_selected_state": true,
+                    "dragging_behaviour": false,
                     "scale":[1,1],
-                    "pos":[5,5],
                     "texture":"../assets/Eraser.png",
                     "highlighted_texture":"../assets/Eraser_Hover.png",
                     "selected_texture":"../assets/Eraser_Selected.png"
@@ -24,8 +27,9 @@
                 {
                     "id":"save",
                     "type":"button",
+                    "toggle_selected_state": false,
+                    "dragging_behaviour": false,
                     "scale":[1,1],
-                    "pos":[34,5],
                     "texture":"../assets/Save.png",
                     "highlighted_texture":"../assets/Save_Hover.png",
                     "selected_texture":"../assets/Save_Selected.png"
@@ -37,14 +41,16 @@
             "id":"layers_group",
             "type":"group",
             "pos":[58,0],
-            "size":[63,34],
-            "color":[100,100,100],
+            "color":[200,200,200],
+            "horizontal_orientation":true,
+            "offset":[2,2],
             "elements":[
                 {
                     "id":"add_layers",
                     "type":"button",
+                    "toggle_selected_state": false,
+                    "dragging_behaviour": false,
                     "scale":[1,1],
-                    "pos":[5,5],
                     "texture":"../assets/Add.png",
                     "highlighted_texture":"../assets/Add_Hover.png",
                     "selected_texture":"../assets/Add_Selected.png"
@@ -52,8 +58,9 @@
                 {
                     "id":"show_layers",
                     "type":"button",
+                    "toggle_selected_state": true,
+                    "dragging_behaviour": false,
                     "scale":[1,1],
-                    "pos":[34,5],
                     "texture":"../assets/Down.png",
                     "highlighted_texture":"../assets/Down_Hover.png",
                     "selected_texture":"../assets/Down_Selected.png"
@@ -65,21 +72,24 @@
         "id":"layers",
         "type":"group",
         "pos":[116,35],
-        "size":[121,600],
         "color":[0,0,0],
+        "horizontal_orientation":false,
+        "offset":[2,2],
         "elements":
             [{
                 "id":"layer_template",
                 "type":"group",
                 "pos":[0,0],
-                "size":[121,58],
-                "color":[100,100,100],
+                "color":[200,200,200],
+                "horizontal_orientation":true,
+                "offset":[2,2],
                 "elements":[
                 {
                     "id":"move_up",
                     "type":"button",
+                    "toggle_selected_state": false,
+                    "dragging_behaviour": false,
                     "scale":[1,1],
-                    "pos":[5,5],
                     "texture":"../assets/Up.png",
                     "highlighted_texture":"../assets/Up_Hover.png",
                     "selected_texture":"../assets/Up_Selected.png"
@@ -87,8 +97,9 @@
                 {
                     "id":"move_down",
                     "type":"button",
+                    "toggle_selected_state": false,
+                    "dragging_behaviour": false,
                     "scale":[1,1],
-                    "pos":[34,5],
                     "texture":"../assets/Down.png",
                     "highlighted_texture":"../assets/Down_Hover.png",
                     "selected_texture":"../assets/Down_Selected.png"
@@ -96,22 +107,71 @@
                 {
                     "id":"toogle_visibility",
                     "type":"button",
+                    "toggle_selected_state": true,
+                    "dragging_behaviour": false,
                     "scale":[1,1],
-                    "pos":[63,5],
                     "texture":"../assets/Show.png",
                     "highlighted_texture":"../assets/Show_Hover.png",
-                    "selected_texture":"../assets/Show_Selected.png"
+                    "selected_texture":"../assets/Hide_Selected.png"
                 },
                 {
                     "id":"delete",
                     "type":"button",
+                    "toggle_selected_state": false,
+                    "dragging_behaviour": false,
                     "scale":[1,1],
-                    "pos":[92,5],
                     "texture":"../assets/Trash.png",
                     "highlighted_texture":"../assets/Trash_Hover.png",
                     "selected_texture":"../assets/Trash_Selected.png"
                 }
                 ]
             }]
-     }
+     },
+     {
+        "id":"test_scrollbar",
+        "type":"scrollbar",
+        "pos":[500,300],
+        "track_length":100,
+        "range":[0,100],
+        "scrollbar_color":[100,100,100],
+        "track_color":[150,150,150],
+        "offset":[2,2],
+        "start_value":10,
+        "step":1,
+        "horizontal_bar":true,
+        "elements":{
+            "increment_data":{
+                "id":"move_up",
+                "type":"button",
+                "scale":[1,1],
+                "toggle_selected_state":false,
+                "dragging_behaviour": false,
+                "texture":"../assets/Up.png",
+                "highlighted_texture":"../assets/Up_Hover.png",
+                "selected_texture":"../assets/Up_Selected.png"
+            },
+            "thumb_data":{
+                "id":"thumb",
+                "type":"button",
+                "pos":[28,2],
+                "scale":[1,1],
+                "toggle_selected_state":false,
+                "dragging_behaviour": true,
+                "texture":"../assets/Add.png",
+                "highlighted_texture":"../assets/Add_Hover.png",
+                "selected_texture":"../assets/Add_Selected.png"
+            },
+            "decrement_data":{
+                "id":"move_down",
+                "type":"button",
+                "pos":[130,2],
+                "scale":[1,1],
+                "toggle_selected_state":false,
+                "dragging_behaviour": false,
+                "texture":"../assets/Down.png",
+                "highlighted_texture":"../assets/Down_Hover.png",
+                "selected_texture":"../assets/Down_Selected.png"
+            }
+        }
+    }
 ]}

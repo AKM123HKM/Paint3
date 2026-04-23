@@ -1,7 +1,7 @@
 #include "mouse_utility.h"
 #include <iostream>
 
-MouseButton& Mouse::check_button(sf::Mouse::Button button){
+MouseButton& Mouse::checkButton(sf::Mouse::Button button){
 	if (sf::Mouse::Button::Left == button){
 		return left_button;
 	}
@@ -15,7 +15,7 @@ float Mouse::magnitude(sf::Vector2f vec){
 	return sqrt(vec.x*vec.x + vec.y*vec.y);
 }
 
-sf::Vector2f Mouse::get_mouse_position(sf::RenderWindow& window){
+sf::Vector2f Mouse::getMousePosition(sf::RenderWindow& window){
 	sf::Vector2i mouse_pixel =  sf::Mouse::getPosition(window);
 	sf::Vector2f mouse_pos = window.mapPixelToCoords(mouse_pixel);
 
@@ -29,7 +29,7 @@ void Mouse::updateMousePosition(sf::RenderWindow& window){
 }
 
 void Mouse::updateButton(sf::Mouse::Button aButton){
-	auto& button = check_button(aButton);
+	auto& button = checkButton(aButton);
 	button.event = MouseButtonEvents::None;
 	if (sf::Mouse::isButtonPressed(aButton)){
 		if(button.state == MouseButtonStates::Idle){
@@ -45,6 +45,7 @@ void Mouse::updateButton(sf::Mouse::Button aButton){
 		if (button.state == MouseButtonStates::Pressed || button.state == MouseButtonStates::Held){
 			if (magnitude(prev_mouse_pos - current_mouse_pos) >= DRAG_THRESHOLD){
 				button.state = MouseButtonStates::Dragging;
+				button.drag_value = current_mouse_pos - prev_mouse_pos;
 			}
 		}
 	}
@@ -66,12 +67,17 @@ void Mouse::updateButton(sf::Mouse::Button aButton){
 	}
 }
 
-MouseButtonStates Mouse::get_button_state(sf::Mouse::Button aButton){
-	auto& button = check_button(aButton);
+MouseButtonStates Mouse::getButtonState(sf::Mouse::Button aButton){
+	auto& button = checkButton(aButton);
 	return button.state;
 }
 
-MouseButtonEvents Mouse::get_button_event(sf::Mouse::Button aButton){
-	auto& button = check_button(aButton);
+MouseButtonEvents Mouse::getButtonEvent(sf::Mouse::Button aButton){
+	auto& button = checkButton(aButton);
 	return button.event;
+}
+
+sf::Vector2f Mouse::getButtonDragValue(sf::Mouse::Button aButton){
+	auto& button = checkButton(aButton);
+	return button.drag_value;
 }
